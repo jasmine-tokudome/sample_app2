@@ -10,7 +10,7 @@ default: &default
   username: sample_app
   password: 19850802-Jasmine
   host: 127.0.0.1
-  port: 5433
+  port: 5432
   timeout: 5000
 
 development:
