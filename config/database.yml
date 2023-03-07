@@ -7,23 +7,24 @@
 default: &default
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: sample_app
-  password: 19850802-Jasmine
   host: 127.0.0.1
   port: 5432
   timeout: 5000
+  encoding: unicode
+  username:  sample_app2
+  password:
 
 development:
   <<: *default
-  database: db/development.postgresql
+  #database: sample_app2_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.postgresql
+  #database: sample_app2_test
 
 production:
   <<: *default
-  database: db/production.postgresql
+  #database: sample_app2_production
