@@ -3,7 +3,12 @@ require "test_helper"
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @base_title = "Ruby on Rails Tutorial Sample App"
+    @base_title = "Ruby on Rails Tutorial Sample App"  #Rails7 3章　リスト3.32 
+  end
+
+  test "should get root" do #Rails7 3章　リスト3.44
+    get root_url
+    assert_response :success
   end
 
   test "should get home" do
