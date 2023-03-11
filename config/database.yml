@@ -1,6 +1,10 @@
 default: &default
-  adapter: postgres
+  adapter: postgresql
+  encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: tokudome
+  password: 
+  host: localhost
   timeout: 5000
 
 development:
@@ -13,4 +17,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: SampleApp2_development
