@@ -8,7 +8,7 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *defautl
+  <<: *default
   database: SampleApp2_development
 
 test:
