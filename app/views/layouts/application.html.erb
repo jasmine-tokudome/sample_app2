@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>   #この記述でHTML5であることを宣言している
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
+    <header class="navbar navbar-fixed-top navbar-inverse"> #headerはページの上部にくるべき要素。3つのCSSクラスが与えられている（スペース区切り）。
       <div class="container">
         <%= link_to "sample app", '#', id: "logo" %>
         <nav>
