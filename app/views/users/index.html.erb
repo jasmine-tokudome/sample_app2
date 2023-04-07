@@ -1,11 +1,12 @@
-app/views/users/index.html.erb
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
 <%= will_paginate %>
 
 <ul class="users">
-    <%= render user %>
+    <% @users.map do |user| %>
+        <%= render user %>
+    <% end %>
 </ul>
 
 <%= will_paginate %>

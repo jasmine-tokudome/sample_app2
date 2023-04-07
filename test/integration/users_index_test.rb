@@ -1,47 +1,19 @@
 require "test_helper"
 
-class UsersIndex < ActionDispatch::IntegrationTest
+  class UsersIndex < ActionDispatch::IntegrationTest
 
-  def setup
-    @admin     = users(:michael)
-    @non_admin = users(:archer)
-  end
-
-  test "index as admin including pagination and delete links" do
-    log_in_as(@admin)
-    get users_path
-    assert_template 'users/index'
-    assert_select 'div.pagination'
-    first_page_of_users = User.paginate(page: 1)
-    first_page_of_users.each do |user|
-      assert_select 'a[href=?]', user_path(user), text: user.name
-      unless user == @admin
-        assert_select 'a[href=?]', user_path(user), text: 'delete'
-      end
-    end
-    assert_difference 'User.count', -1 do
-      delete user_path(@non_admin)
-      assert_response :see_other
-      assert_redirected_to users_url
+    def setup
+      @admin     = users(:michael)
+      @non_admin = users(:archer)
     end
   end
 
-  test "index as non-admin" do
-    log_in_as(@non_admin)
-    get users_path
-    assert_select 'a', text: 'delete', count: 0
-  end
-  
-  test "index including pagination" do
-    log_in_as(@user)
-    get users_path
-    assert_template 'users/index'
-    assert_select 'div.pagination'
-    User.paginate(page: 1).each do |user|
-      assert_select 'a[href=?]', user_path(user), text: user.name
-    end
-  end
-end
+# Error:
+# UsersIndexAdminTest#test_should_paginate_users:
+# ActionView::Template::Error: undefined local variable or method `user' for #<ActionView::Base:0x0000000000cfd0>
+#     app/views/users/index.html.erb:7
+#     test/integration/users_index_test.rb:16:in `setup'
+# rails test test/integration/users_index_test.rb:26
 
 class UsersIndexAdmin < UsersIndex
 
@@ -50,9 +22,9 @@ class UsersIndexAdmin < UsersIndex
       log_in_as(@admin)
       get users_path
     end
-  end
+end
 
-  class UsersIndexAdminTest < UsersIndexAdmin
+class UsersIndexAdminTest < UsersIndexAdmin
 
     test "should render the index page" do
       assert_template 'users/index'
@@ -84,14 +56,14 @@ class UsersIndexAdmin < UsersIndex
       # ページにいる最初のユーザーを無効化する。
       # 無効なユーザーを作成するだけでは、
       # Railsで最初のページに表示される保証がないので不十分
-      User.paginate(page: 1).first.toggle!.save
+      User.paginate(page: 1).first.toggle!log_in_as(@admin)
       # /usersを再度取得して、無効化済みのユーザーが表示されていないことを確かめる
       get users_path      
       # 表示されているすべてのユーザーが有効化済みであることを確かめる
       assigns(:users).each do |user|
-        assert user.activated?
+        assert user.log_in_as(@admin)
       end
-    end
+    end 
   end
 
   class UsersNonAdminIndexTest < UsersIndex
