@@ -56,12 +56,12 @@ class UsersIndexAdminTest < UsersIndexAdmin
       # ページにいる最初のユーザーを無効化する。
       # 無効なユーザーを作成するだけでは、
       # Railsで最初のページに表示される保証がないので不十分
-      User.paginate(page: 1).first.toggle!log_in_as(@admin)
+      User.paginate(page: 1).first.toggle!
       # /usersを再度取得して、無効化済みのユーザーが表示されていないことを確かめる
       get users_path      
       # 表示されているすべてのユーザーが有効化済みであることを確かめる
       assigns(:users).each do |user|
-        assert user.log_in_as(@admin)
+        assert user.activated?
       end
     end 
   end
