@@ -49,13 +49,15 @@ class User < ApplicationRecord
 
   # アカウントを有効にする
   def activate
-    # update_attribute(:activated,    true)
-    # update_attribute(:activated_at, Time.zone.now)
+    # user.という記法は使わない。
+    # Userモデルにはそのような変数はないためuser.があるとエラーになる。
+    # userをselfに切り替える方法もあるが、selfはモデル内では必須ではない.
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   # 有効化用のメールを送信する
   def send_activation_email
+    # @userがselfに変更されている
     UserMailer.account_activation(self).deliver_now
   end
 

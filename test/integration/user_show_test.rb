@@ -9,8 +9,8 @@ require "test_helper"
 
     test "should redirect when user not activated" do
       get user_path(@inactive_user)
-      assert_response  :see_other
-      assert_redirected_to :root_url
+      assert_response  :redirect
+      assert_redirected_to :root
     end
 
     test "should display user when activated" do
